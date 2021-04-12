@@ -21,10 +21,14 @@ read('./model/User.js', function (data) {
     var fixedJSON = secondMatch.replace(/([a-zA-Z0-9-]+):([a-zA-Z0-9-]+)/g, "\"$1\":\"$2\"");
     fixedJSON = fixedJSON.replace(/([{,])(\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$3":')
 
-    console.log('baratinha: ', fixedJSON);
+    // console.log('baratinha: ', fixedJSON);
 
     var resultado = JSON.parse(fixedJSON);
-    console.log('Funcionou???? ', resultado);
+    // console.log('Funcionou???? ', resultado);
+
+    for (var key in resultado) {
+        console.log(`Criando testes para a chave: ${key}\n\n`);
+    }
 
 })
 
