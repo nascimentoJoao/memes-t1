@@ -1,27 +1,26 @@
 //Receber um arquivo model/mongoose
-var fs = require('fs');
+const fs = require('fs');
 
 function read(filePath, cb) {
-    fs.readFile(filePath, 'utf8', function(err, data){
-        if(err) throw err;
+    fs.readFile(filePath, 'utf8', function (err, data) {
+        if (err) throw err;
         cb(data);
     });
 }
 
-read('./model/User.js', function(data) {
-    var regExp = /\(({[^)]+})\)/;
-    var matches = regExp.exec(data)
+function parseModel(data) {
+    let schemaRegex = /\(({[^)]+})\)/
+    let schema = schemaRegex.exec(data)
 
-    var regExp2 = /^([^:-][^:]*):/
+    if (schema.length == 0)
+        return []
 
-    var secondMatch = regExp2.exec(matches[0]);
+    let fieldRegex = /\w+:\s*((\{\s*(\w+:\s*\w+,?\s*)+\})|(\w+)|\[.*\])/gm
+    return schema[0].match(fieldRegex);
+}
 
-    console.log('AAAA', matches[0]);
 
-    console.log('primeira parte: ', secondMatch);
+parsed = read('./model/User.js', parseModel)
 
-})
-
-//A partir disso, verificar os campos e tipos ali preenchidos
 
 //Aplicar testes unitários para os tipos
