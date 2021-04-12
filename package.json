@@ -1,0 +1,32 @@
+{
+  "name": "memes-t1",
+  "version": "1.0.0",
+  "description": "Chai unit tests generator",
+  "main": "generate_test.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nascimentoJoao/memes-t1.git"
+  },
+  "keywords": [
+    "unit",
+    "tests",
+    "chai",
+    "javascript"
+  ],
+  "author": "Fabricio Pujol, Frederico Iepsen, Joao Nascimento, Joao Severo, Larissa Salerno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nascimentoJoao/memes-t1/issues"
+  },
+  "homepage": "https://github.com/nascimentoJoao/memes-t1#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2"
+  }
+}
