@@ -2,4 +2,4 @@
 Primeiro trabalho da disciplina de Métodos e Modelos em Engenharia de Software
 
 
-Integrantes: Fabricio Pujol, João Nascimento, João Severo, Larissa Salerno
+Integrantes: Fabricio Pujol, Frederico Iepsen, João Nascimento, João Severo, Larissa Salerno 
