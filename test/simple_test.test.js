@@ -1,10 +1,12 @@
-const { expect } = require('chai');
+const { assert } = require('chai');
 
-describe('UnitTests ::: User', () => {
+describe('SampleTest ::: SampleUser', () => {
     describe('Field [name]: ', () => {
         context('When name is sent with a text value', () => {
-            it('should return sucess', () => {
-                expect(1).to.equal(1);
+            it('should be a string', () => {
+                const USER = { name: 'Steve' };
+
+                assert.typeOf(USER.name, 'string', 'the name is a string');
            });
         });
     });

@@ -8,7 +8,7 @@ function read(filePath, cb) {
     });
 }
 
-fs.appendFile('./test/User.test.js', `const { expect } = require('chai');\n\n`, (err) => {
+fs.appendFile('./test/User.test.js', `const { assert } = require('chai');\n\n`, (err) => {
     if (err) throw err;
 });
 
@@ -22,7 +22,7 @@ read('./model/User.js', function (data) {
 
     var secondMatch = matches[0].substring(1, matches[0].length - 1);
 
-    console.log('Second match', secondMatch);
+    // console.log('Second match', secondMatch);
 
     secondMatch = secondMatch.replace(/ /g, '');
 
@@ -37,27 +37,84 @@ read('./model/User.js', function (data) {
     for (var key in resultado) {
         // console.log(`Criando testes para a chave: ${key}\n\n`);
         if (key === 'name') {
-            fs.appendFile('./test/User.test.js', `describe('Field [${key}]: ', () => {\n`, (err) => {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
                 if (err) throw err;
             });
 
-            fs.appendFile('./test/User.test.js', `context('When field [${key}] is a string: ', () => {\n`, (err) => {
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with a string: ', () => {\n`, (err) => {
                 if (err) throw err;
             });
 
-            fs.appendFile('./test/User.test.js', `it('Should return true: ', () => {\n`, (err) => {
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof String: ', () => {\n`, (err) => {
                 if (err) throw err;
             });
 
-            fs.appendFile('./test/User.test.js', `expect', () => {\n`, (err) => {
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Lancelot' };\n\t\t\t\tassert.typeOf(USER.name, 'string', 'the name is a string');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
+                if (err) throw err;
+            });
+        }
+
+        if (key === 'status') {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with a boolean: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof Boolean: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Poseidon', status: true };\n\t\t\t\tassert.typeOf(USER.status, 'boolean', 'the status is a boolean');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
+                if (err) throw err;
+            });
+        }
+
+        if (key === 'payments') {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with multiple values: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof Array: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Poseidon', status: true, payments: [{date: '14/12/2020', value: 90}, {date: '10/11/2020', value: 190}] };\n\t\t\t\tassert.typeOf(USER.payments, 'array', 'the payments key is an array');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
                 if (err) throw err;
             });
         }
     }
 
-    fs.appendFile('./test/User.test.js', `});\n`, (err) => {
-        if (err) throw err;
-    });
 
     fs.appendFile('./test/User.test.js', `});\n`, (err) => {
         if (err) throw err;
