@@ -1,6 +1,6 @@
 # memes-t1
 Primeiro trabalho da disciplina de Métodos e Modelos em Engenharia de Software
-
+A ideia do trabalho consistia na criação de testes unitários criados de maneira automática a partir de uma model do Mongoose. Siga as instruções no repositório para testar a aplicação.
 
 Integrantes: Fabricio Pujol, Frederico Iepsen, João Nascimento, João Severo, Larissa Salerno 
 
