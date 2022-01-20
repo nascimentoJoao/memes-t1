@@ -8,47 +8,118 @@ function read(filePath, cb) {
     });
 }
 
-function parseModel(data) {
-    let schemaRegex = /\(({[^)]+})\)/
-    let schema = schemaRegex.exec(data)
+fs.appendFile('./test/User.test.js', `const { assert } = require('chai');\n\n`, (err) => {
+    if (err) throw err;
+});
 
-    if (schema.length == 0)
-        return []
+fs.appendFile('./test/User.test.js', `describe('UnitTests :: User', () => {\n`, (err) => {
+    if (err) throw err;
+});
 
-    let fieldRegex = /\w+:\s*((\{\s*(\w+:\s*\w+,?\s*)+\})|(\w+)|\[.*\])/gm
-    return schema[0].match(fieldRegex);
-}
+read('./model/User.js', function (data) {
+    var regExp = /\(({[^)]+})\)/;
+    var matches = regExp.exec(data)
 
+    var secondMatch = matches[0].substring(1, matches[0].length - 1);
 
-function checkFields(data) {
-    let typeRegex = /\w/
-    let defaultRegex = /\w/
-    let aliasRegex = /\w/
-    let requiredRegex = /\w/
-    let maxLengthRegex = /\w/
-    let minLengthRegex = /\w/
-    let enumRegex = /\w/
-    let minRegex = /\w/
-    let maxRegex = /\w/
+    // console.log('Second match', secondMatch);
 
-    let testMapper = {}
-    for (let field of data){
-        let fieldName = batata
+    secondMatch = secondMatch.replace(/ /g, '');
 
-        if(!(field in testMapper)){
-            testMapper[fieldName] = {data: [], function: []}
+    var fixedJSON = secondMatch.replace(/([a-zA-Z0-9-]+):([a-zA-Z0-9-]+)/g, "\"$1\":\"$2\"");
+    fixedJSON = fixedJSON.replace(/([{,])(\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$3":')
+
+    // console.log('baratinha: ', fixedJSON);
+
+    var resultado = JSON.parse(fixedJSON);
+    // console.log('Funcionou???? ', resultado);
+
+    for (var key in resultado) {
+        // console.log(`Criando testes para a chave: ${key}\n\n`);
+        if (key === 'name') {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with a string: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof String: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Lancelot' };\n\t\t\t\tassert.typeOf(USER.name, 'string', 'the name is a string');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
+                if (err) throw err;
+            });
         }
 
-        let typeData = field.match(typeRegex)
-        if(typeData){
-            testMapper[fieldName].data = field
-            testMapper[fieldName].function = testType
+        if (key === 'status') {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with a boolean: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof Boolean: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Poseidon', status: true };\n\t\t\t\tassert.typeOf(USER.status, 'boolean', 'the status is a boolean');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
+                if (err) throw err;
+            });
+        }
+
+        if (key === 'payments') {
+            fs.appendFile('./test/User.test.js', `\tdescribe('Field [${key}]: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\tcontext('Sending Field [${key}] with multiple values: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\tit('Should be typeof Array: ', () => {\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t\t\tconst USER = { name: 'Poseidon', status: true, payments: [{date: '14/12/2020', value: 90}, {date: '10/11/2020', value: 190}] };\n\t\t\t\tassert.typeOf(USER.payments, 'array', 'the payments key is an array');`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\n\t\t\t});\t\t\n});\n`, (err) => {
+                if (err) throw err;
+            });
+
+            fs.appendFile('./test/User.test.js', `\t\t});\n`, (err) => {
+                if (err) throw err;
+            });
         }
     }
-}
 
-parsed = read('./model/User.js', parseModel)
-checks = checkFields(parsed)
 
+    fs.appendFile('./test/User.test.js', `});\n`, (err) => {
+        if (err) throw err;
+    });
+
+});
 
 //Aplicar testes unitários para os tipos
