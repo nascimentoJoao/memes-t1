@@ -1,5 +1,5 @@
 //Receber um arquivo model/mongoose
-var fs = require('fs');
+const fs = require('fs');
 
 function read(filePath, cb) {
     fs.readFile(filePath, 'utf8', function (err, data) {
@@ -121,7 +121,5 @@ read('./model/User.js', function (data) {
     });
 
 });
-
-//A partir disso, verificar os campos e tipos ali preenchidos
 
 //Aplicar testes unitários para os tipos
